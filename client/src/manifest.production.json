@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "gpg-ext",
+    "description": "chrome extension",
+    "version": "0.0.1",
+    "permissions": [
+        "storage",
+        "scripting",
+        "declarativeContent",
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_title": "Click Me",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.linkedin.com/company/*"
+            ],
+            "js": [
+                "/content.js"
+            ]
+        }
+    ],
+    "options_page": "options.html",
+    "devtools_page": "devtools.html"
+}
