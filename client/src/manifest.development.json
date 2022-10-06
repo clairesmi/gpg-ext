@@ -32,6 +32,11 @@
             ]
         }
     ],
+    "externally_connectable": {
+        "matches": [
+            "https://www.linkedin.com/company/*"
+        ]
+    },
     "options_page": "options.html",
     "devtools_page": "devtools.html"
 }

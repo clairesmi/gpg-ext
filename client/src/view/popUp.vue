@@ -8,6 +8,7 @@ import PayQuarters from "./PayQuarters.vue";
 // create the tab variable for script execution in the active tab
 let title = ref("");
 let companyData = reactive([]);
+
 let currentCompany = ref({});
 let loading = ref(true);
 
@@ -97,14 +98,14 @@ fetchData();
       </header>
       <section class="section">
         <pay-gap-chart
-          v-if="currentCompany['DiffMedianHourlyPercent']"
+          v-if="typeof currentCompany['DiffMedianHourlyPercent'] === 'number'"
           class="hpg"
           label="hourly"
           :diffMedianPercent="currentCompany['DiffMedianHourlyPercent']"
           :diffMeanPercent="currentCompany['DiffMeanHourlyPercent']"
         />
         <pay-gap-chart
-          v-if="currentCompany['DiffMedianBonusPercent']"
+          v-if="typeof currentCompany['DiffMedianBonusPercent'] === 'number'"
           class="bpg"
           label="bonus"
           :diffMedianPercent="currentCompany['DiffMedianBonusPercent']"

@@ -1,6 +1,6 @@
 // let color = '#3aa757';
 
-chrome.runtime.onInstalled.addListener(() => {
+// chrome.runtime.onInstalled.addListener(() => {
   // chrome.storage.sync.set({ color });
   // console.log('Default background color set to %cgreen', `color: ${color}`);
   // Wrap in an onInstalled callback in order to avoid unnecessary work
@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener(() => {
       let linkedinRule = {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostSuffix: '.linkedin.com/company/' },
+            pageUrl: { urlContains: '.linkedin.com/company/' },
           })
         ],
         actions: [new chrome.declarativeContent.ShowAction()],
@@ -27,4 +27,4 @@ chrome.runtime.onInstalled.addListener(() => {
     });
   });
 
-});
+// });

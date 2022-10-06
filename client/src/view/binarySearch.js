@@ -5,8 +5,14 @@ const fuseOpts = {
     includeMatches: true,
     threshold: 0.3,
     useExtendedSearch: true,
-    fieldNormWeight: 0
+    fieldNormWeight: 0.2
 }
+
+
+// current workaround for revolut which returns the wrong company with the standard functionality
+const EXCEPTIONS = [
+    'REVOLUT'
+]
 
 
 export const binarySearch = (arr, title, start, end) => {
@@ -24,11 +30,23 @@ export const binarySearch = (arr, title, start, end) => {
     //     console.log(arr[mid], 'arr mid')
     //     return arr[mid];
     // }
-    const fuse = new Fuse([arr[mid]["CurrentName"].toUpperCase()], fuseOpts)
-    const result = fuse.search(title)
-    if (result.length || arr[mid]["CurrentName"].toUpperCase().includes(title) || title.includes(arr[mid]["CurrentName"].toUpperCase())) {
-        return arr[mid]
+
+    if (EXCEPTIONS.includes(title)) {
+        if (arr[mid]["CurrentName"].toUpperCase().includes(title + ' ') || title.includes(arr[mid]["CurrentName"] + ' '.toUpperCase())) {
+            return arr[mid]
+        }
+    } else {
+        const fuse = new Fuse([arr[mid]["CurrentName"].toUpperCase()], fuseOpts)
+        // includes option for fuse.js
+        const result = fuse.search(`'${title}`)
+        if (result.length || arr[mid]["CurrentName"].toUpperCase().includes(title) || title.includes(arr[mid]["CurrentName"].toUpperCase())) {
+            console.log(arr[mid])
+            return arr[mid]
+        }
     }
+
+
+
 
 
     // If element at mid is greater than x,
