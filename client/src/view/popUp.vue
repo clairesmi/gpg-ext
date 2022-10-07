@@ -27,6 +27,7 @@ const setupExt = async () => {
       function: findTitleInTab,
     },
     (injectionResults) => {
+      // console.log(injectionResults, 'ir')
       const res = injectionResults[0].result;
       parseResult(res);
     }
@@ -40,15 +41,20 @@ const parseResult = (str) => {
 // The body of this function will be executed as a content script inside the
 // current page
 const findTitleInTab = () => {
-  try {
-    let headers = document.querySelectorAll("h1");
-    headers = Array.from(headers);
-    headers.map((h) => {
-      if (h.title) title = h.title;
-      return title;
-    });
-    return title;
-  } catch {
+  let headers = document.querySelectorAll("h1");
+  headers = Array.from(headers);
+  // return headers.map((h) => {
+  //   if (h.title) {
+  //     title = h.title;
+  //     return title;
+  //   } else {
+  //     throw new Error("Page title not found");
+  //   }
+  // });
+  const titleAttr = headers.find((h) => h.title).title;
+  if (titleAttr) {
+    return titleAttr;
+  } else {
     throw new Error("Page title not found");
   }
 };
@@ -64,6 +70,7 @@ const fetchData = async () => {
       },
     });
     companyData = await res.json();
+    // console.log(companyData.map(c => c.CurrentName))
     findCurrentCompany();
     loading.value = false;
   } catch (e) {
@@ -92,7 +99,7 @@ fetchData();
 <template>
   <div class="main">
     <loading-view class="loading-view" v-if="loading" />
-    <div v-else-if="currentCompany" class="content">
+    <div v-else-if="currentCompany && currentCompany['CurrentName']" class="content">
       <header class="header">
         <h1>{{ currentCompany["CurrentName"] }}</h1>
       </header>
