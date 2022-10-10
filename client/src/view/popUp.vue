@@ -135,7 +135,7 @@ fetchData();
 }
 
 .main {
-  height: 800px;
+  height: fit-content;
   width: 500px;
 }
 

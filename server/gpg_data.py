@@ -21,4 +21,4 @@ def get_data():
 
     return json.loads(df_to_json)
 
-# get_data()
+get_data()

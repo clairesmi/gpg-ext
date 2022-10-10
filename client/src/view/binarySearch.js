@@ -5,7 +5,7 @@ const fuseOpts = {
     includeMatches: true,
     threshold: 0.3,
     useExtendedSearch: true,
-    fieldNormWeight: 0.2
+    fieldNormWeight: 2
 }
 
 
@@ -14,7 +14,7 @@ const EXCEPTIONS = [
     'REVOLUT'
 ]
 
-// the guardian, metro bank, missguided, ryanair, net a porter
+// the guardian, metro bank, missguided, ryanair
 
 const capitalise = str => {
     return str.toUpperCase()
@@ -22,20 +22,25 @@ const capitalise = str => {
 
 
 export const binarySearch = (arr, title, start, end) => {
+    
+    // const cleansedTitle = title.startsWith('THE') ? title.slice(4) : title
     // console.log('runn')
     // Base Condition
     if (start > end) {
         return
     }
-
+    
     // Find the middle index
     let mid = Math.floor((start + end) / 2);
-
+    
     let currentName
+    let cleansedName
     
     if (arr[mid]['CurrentName']) currentName = capitalise(arr[mid]['CurrentName'])
+    if (arr[mid]['CleansedName']) cleansedName = capitalise(arr[mid]['CleansedName'])
     // console.log(currentName)
-
+    
+    const fuse = new Fuse([currentName, cleansedName], fuseOpts)
     // Compare mid with given key 
     // if (arr[mid]["CurrentName"].toUpperCase().includes(title) || title.includes(arr[mid]["CurrentName"].toUpperCase())) { // zizzi should be title - use includes both ways
     //     console.log(arr[mid], 'arr mid')
@@ -47,12 +52,12 @@ export const binarySearch = (arr, title, start, end) => {
             return arr[mid]
         }
     } else {
-        const fuse = new Fuse([currentName], fuseOpts)
+        // console.log(currentName, cleansedName)
         // const fuse = new Fuse(title, fuseOpts)
         // includes option for fuse.js
-        const result = fuse.search(`'${title}`)
+        // const result = fuse.search(`${cleansedTitle}`)
+        const result = fuse.search(`${title}`)
         if (result.length || currentName.includes(title) || title.includes(currentName)) {
-            // console.log(arr[mid])
             return arr[mid]
         }
     }
@@ -65,7 +70,7 @@ export const binarySearch = (arr, title, start, end) => {
     // search in the left half of mid
 
     if (currentName > title) {
-        // if (currentName > title) {
+    // if (currentName > cleansedTitle) {
         return binarySearch(arr, title, start, mid - 1);
     } else {
 

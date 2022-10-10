@@ -15,7 +15,7 @@
       let linkedinRule = {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { urlContains: '.linkedin.com/company/' },
+            pageUrl: { urlContains: 'linkedin.com/company/' },
           })
         ],
         actions: [new chrome.declarativeContent.ShowAction()],
