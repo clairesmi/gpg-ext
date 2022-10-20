@@ -8,6 +8,7 @@ import PayQuarters from "./PayQuarters.vue";
 // create the tab variable for script execution in the active tab
 let title = ref("");
 let companyData = reactive([]);
+
 let currentCompany = ref({});
 let loading = ref(true);
 
@@ -26,6 +27,7 @@ const setupExt = async () => {
       function: findTitleInTab,
     },
     (injectionResults) => {
+      // console.log(injectionResults, 'ir')
       const res = injectionResults[0].result;
       parseResult(res);
     }
@@ -39,15 +41,20 @@ const parseResult = (str) => {
 // The body of this function will be executed as a content script inside the
 // current page
 const findTitleInTab = () => {
-  try {
-    let headers = document.querySelectorAll("h1");
-    headers = Array.from(headers);
-    headers.map((h) => {
-      if (h.title) title = h.title;
-      return title;
-    });
-    return title;
-  } catch {
+  let headers = document.querySelectorAll("h1");
+  headers = Array.from(headers);
+  // return headers.map((h) => {
+  //   if (h.title) {
+  //     title = h.title;
+  //     return title;
+  //   } else {
+  //     throw new Error("Page title not found");
+  //   }
+  // });
+  const titleAttr = headers.find((h) => h.title).title;
+  if (titleAttr) {
+    return titleAttr;
+  } else {
     throw new Error("Page title not found");
   }
 };
@@ -63,6 +70,7 @@ const fetchData = async () => {
       },
     });
     companyData = await res.json();
+    // console.log(companyData.map(c => c.CurrentName))
     findCurrentCompany();
     loading.value = false;
   } catch (e) {
@@ -91,20 +99,20 @@ fetchData();
 <template>
   <div class="main">
     <loading-view class="loading-view" v-if="loading" />
-    <div v-else-if="currentCompany" class="content">
+    <div v-else-if="currentCompany && currentCompany['CurrentName']" class="content">
       <header class="header">
         <h1>{{ currentCompany["CurrentName"] }}</h1>
       </header>
       <section class="section">
         <pay-gap-chart
-          v-if="currentCompany['DiffMedianHourlyPercent']"
+          v-if="typeof currentCompany['DiffMedianHourlyPercent'] === 'number'"
           class="hpg"
           label="hourly"
           :diffMedianPercent="currentCompany['DiffMedianHourlyPercent']"
           :diffMeanPercent="currentCompany['DiffMeanHourlyPercent']"
         />
         <pay-gap-chart
-          v-if="currentCompany['DiffMedianBonusPercent']"
+          v-if="typeof currentCompany['DiffMedianBonusPercent'] === 'number'"
           class="bpg"
           label="bonus"
           :diffMedianPercent="currentCompany['DiffMedianBonusPercent']"
@@ -127,7 +135,7 @@ fetchData();
 }
 
 .main {
-  height: 800px;
+  height: fit-content;
   width: 500px;
 }
 
