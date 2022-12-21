@@ -4,6 +4,7 @@ import { binarySearch } from "../utils/binarySearch";
 import LoadingView from "../components/LoadingView.vue";
 import PayGapChart from "../components/PayGapChart.vue";
 import PayQuarters from "../components/PayQuarters.vue";
+import ChartLegend from "../components/ChartLegend.vue";
 
 // create the tab variable for script execution in the active tab
 let title = ref("");
@@ -27,7 +28,6 @@ const setupExt = async () => {
       func: findTitleInTab,
     },
     (injectionResults) => {
-      console.log(injectionResults, "ir");
       const res = injectionResults[0].result;
       parseResult(res);
     }
@@ -73,7 +73,6 @@ const fetchData = async () => {
 };
 
 const findCurrentCompany = () => {
-  console.log(title.value);
   if (title.value) {
     currentCompany.value = binarySearch(
       companyData,
@@ -101,7 +100,8 @@ onMounted(() => {
       class="content"
     >
       <header class="header">
-        <h1>{{ currentCompany["CurrentName"] }}</h1>
+        <h1 class="header-text">{{ currentCompany["CurrentName"] }}</h1>
+        <chart-legend />
       </header>
       <section class="section">
         <pay-gap-chart
@@ -158,6 +158,17 @@ onMounted(() => {
 .loading-view,
 .content {
   height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0 0 0;
+}
+
+.header-text {
+  margin: 0;
 }
 
 .section {

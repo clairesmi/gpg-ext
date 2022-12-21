@@ -47,10 +47,42 @@ const payQuarters = [
       <div v-for="(item, i) in payQuarters" :key="i" class="quartile">
         <div class="bar">
           <h2 class="quartile-labels">{{ item.label }}</h2>
-          <span class="percentages"></span>
+          <div class="percentages-male">
+            <div
+              class="percentages-female"
+              :style="{ width: item.female + '%' }"
+            ></div>
+          </div>
+          <div class="labels">
+            <p>{{ item.female + "%" }}</p>
+            <p>{{ item.male + "%" }}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+.percentages-male {
+  position: relative;
+  width: 90%;
+  height: 25px;
+  margin: 20px 10 0 0;
+  background-color: grey;
+}
+
+.percentages-female {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: darkorange;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 2px;
+}
+</style>
