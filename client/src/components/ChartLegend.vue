@@ -29,7 +29,7 @@
 
 .key {
   display: flex;
-  align-items: center;
+  margin-left: 5px;
 }
 
 .caption {
