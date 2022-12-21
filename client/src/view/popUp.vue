@@ -1,9 +1,9 @@
 <script setup>
-import { reactive, ref } from "vue";
-import { binarySearch } from "./binarySearch";
-import LoadingView from "./LoadingView.vue";
-import PayGapChart from "./PayGapChart.vue";
-import PayQuarters from "./PayQuarters.vue";
+import { reactive, ref, onMounted, onBeforeMount } from "vue";
+import { binarySearch } from "../utils/binarySearch";
+import LoadingView from "../components/LoadingView.vue";
+import PayGapChart from "../components/PayGapChart.vue";
+import PayQuarters from "../components/PayQuarters.vue";
 
 // create the tab variable for script execution in the active tab
 let title = ref("");
@@ -24,10 +24,10 @@ const setupExt = async () => {
   chrome.scripting.executeScript(
     {
       target: { tabId: tab.id },
-      function: findTitleInTab,
+      func: findTitleInTab,
     },
     (injectionResults) => {
-      // console.log(injectionResults, 'ir')
+      console.log(injectionResults, "ir");
       const res = injectionResults[0].result;
       parseResult(res);
     }
@@ -43,15 +43,7 @@ const parseResult = (str) => {
 const findTitleInTab = () => {
   let headers = document.querySelectorAll("h1");
   headers = Array.from(headers);
-  // return headers.map((h) => {
-  //   if (h.title) {
-  //     title = h.title;
-  //     return title;
-  //   } else {
-  //     throw new Error("Page title not found");
-  //   }
-  // });
-  const titleAttr = headers.find((h) => h.title).title;
+  const titleAttr = headers.find((h) => h.innerText).innerText;
   if (titleAttr) {
     return titleAttr;
   } else {
@@ -61,16 +53,18 @@ const findTitleInTab = () => {
 
 const fetchData = async () => {
   try {
-    const res = await fetch("http://localhost:105/getgpgdata/", {
-      // AWS LOCATION FOR PRODUCTION
-      // const res = await fetch("https://cs--1.s3.eu-west-2.amazonaws.com/gpg_data.json", {
-      method: "get",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    // const res = await fetch("http://localhost:105/getgpgdata/", {
+    // AWS LOCATION FOR PRODUCTION
+    const res = await fetch(
+      "https://cs--1.s3.eu-west-2.amazonaws.com/gpg_data.json",
+      {
+        method: "get",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
     companyData = await res.json();
-    // console.log(companyData.map(c => c.CurrentName))
     findCurrentCompany();
     loading.value = false;
   } catch (e) {
@@ -87,19 +81,25 @@ const findCurrentCompany = () => {
       0,
       companyData.length - 1
     );
-    loading.value = false;
   }
 };
 
-setupExt();
-fetchData();
-</script>
+onBeforeMount(() => {
+  setupExt();
+});
 
+onMounted(() => {
+  fetchData();
+});
+</script>
 
 <template>
   <div class="main">
     <loading-view class="loading-view" v-if="loading" />
-    <div v-else-if="currentCompany && currentCompany['CurrentName']" class="content">
+    <div
+      v-else-if="currentCompany && currentCompany['CurrentName']"
+      class="content"
+    >
       <header class="header">
         <h1>{{ currentCompany["CurrentName"] }}</h1>
       </header>
@@ -120,13 +120,29 @@ fetchData();
           :maleBonusPercent="currentCompany['MaleBonusPercent']"
           :femaleBonusPercent="currentCompany['FemaleBonusPercent']"
         />
-        <pay-quarters />
+        <pay-quarters
+          v-if="
+            currentCompany['FemaleLowerQuartile'] &&
+            currentCompany['MaleLowerQuartile']
+          "
+          :femaleLowerQuartile="currentCompany['FemaleLowerQuartile']"
+          :maleLowerQuartile="currentCompany['MaleLowerQuartile']"
+          :femaleLowerMiddleQuartile="
+            currentCompany['FemaleLowerMiddleQuartile']
+          "
+          :maleLowerMiddleQuartile="currentCompany['MaleLowerMiddleQuartile']"
+          :femaleUpperMiddleQuartile="
+            currentCompany['FemaleUpperMiddleQuartile']
+          "
+          :maleUpperMiddleQuartile="currentCompany['MaleUpperMiddleQuartile']"
+          :femaleTopQuartile="currentCompany['FemaleTopQuartile']"
+          :maleTopQuartile="currentCompany['MaleTopQuartile']"
+        />
       </section>
     </div>
     <div v-else>Gender pay gap data not available here</div>
   </div>
 </template>
-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -142,10 +158,6 @@ fetchData();
 .loading-view,
 .content {
   height: 100%;
-}
-
-.header {
-  /* height: 5%; */
 }
 
 .section {
