@@ -31,4 +31,8 @@
   display: flex;
   margin-left: 5px;
 }
+
+.caption {
+  font-size: 12px;
+}
 </style>
