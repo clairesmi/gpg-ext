@@ -21,18 +21,14 @@
 }
 
 .colour-block.female {
-  background-color: darkorange;
+  background-color: #f05d5e;
 }
 .colour-block.male {
-  background-color: grey;
+  background-color: #828a95;
 }
 
 .key {
   display: flex;
   margin-left: 5px;
-}
-
-.caption {
-  margin: 10px 0;
 }
 </style>

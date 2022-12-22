@@ -146,6 +146,8 @@ onMounted(() => {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import "../styles/variables.css";
+
 * {
   box-sizing: border-box;
 }
@@ -162,9 +164,8 @@ onMounted(() => {
 
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 15px 0 0 0;
+  margin: 15px 5px 0 0;
 }
 
 .header-text {

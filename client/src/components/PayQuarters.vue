@@ -36,17 +36,16 @@ const payQuarters = [
 
 <template>
   <div>
-    <h1 class="header">The percentage of women in each pay quarter</h1>
-    <p>
+    <h2 class="header">The percentage of women in each pay quarter</h2>
+    <p class="quartile-summary">
       In this organisation, women occupy
-      <strong>{{ props.femaleLowerQuartile }}%</strong> of the highest paid jobs
-      and <strong>{{ props.femaleTopQuartile }}%</strong> of the lowest paid
-      jobs.
+      {{ props.femaleLowerQuartile }}% of the highest paid jobs and
+      {{ props.femaleTopQuartile }}% of the lowest paid jobs.
     </p>
     <div class="chart-container">
       <div v-for="(item, i) in payQuarters" :key="i" class="quartile">
         <div class="bar">
-          <h2 class="quartile-labels">{{ item.label }}</h2>
+          <h3 class="quartile-labels">{{ item.label }}</h3>
           <div class="percentages-male">
             <div
               class="percentages-female"
@@ -63,12 +62,17 @@ const payQuarters = [
   </div>
 </template>
 <style scoped>
+.header {
+  padding: 12px 0 0 0;
+  text-decoration: underline;
+  border-top: solid lightgrey 1px;
+}
 .percentages-male {
   position: relative;
   width: 90%;
   height: 25px;
   margin: 20px 10 0 0;
-  background-color: grey;
+  background-color: #828a95;
 }
 
 .percentages-female {
@@ -76,7 +80,7 @@ const payQuarters = [
   top: 0;
   left: 0;
   height: 100%;
-  background-color: darkorange;
+  background-color: #f05d5e;
 }
 
 .labels {
@@ -84,5 +88,9 @@ const payQuarters = [
   justify-content: space-between;
   width: 90%;
   margin: 0 2px;
+}
+
+.quartile-labels {
+  text-decoration: underline;
 }
 </style>

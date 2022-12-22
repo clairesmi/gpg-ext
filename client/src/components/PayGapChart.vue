@@ -32,11 +32,10 @@ const formatAvg = computed(() => {
 <template>
   <div>
     <h2 class="section-header">{{ label }} Pay Gap</h2>
-    <span class="median-summary">
-      In this company,
-      <strong>women earn {{ formatMedian }} for every £1 that men earn</strong>
+    <p class="median-summary">
+      In this company, women earn {{ formatMedian }} for every £1 that men earn
       when comparing median {{ label }} pay.
-    </span>
+    </p>
     <div class="chart-container">
       <div class="female-median">
         <div class="bar">
@@ -49,17 +48,16 @@ const formatAvg = computed(() => {
         </div>
       </div>
     </div>
-    <div class="avg-summary">
+    <p class="avg-summary">
       When comparing average {{ label }} pay, women’s {{ label }} pay is
-      <strong>{{ formatAvg.value }}% {{ formatAvg.direction }}</strong> than
-      men’s.
-    </div>
-    <div class="bonus-summary-female" v-if="label === 'bonus'">
-      <strong>{{ femaleBonusPercent }}%</strong> of women received bonus pay
-    </div>
-    <div class="bonus-summary-male" v-if="label === 'bonus'">
-      <strong>{{ maleBonusPercent }}%</strong> of men received bonus pay
-    </div>
+      {{ formatAvg.value }}% {{ formatAvg.direction }} than men’s.
+    </p>
+    <p class="bonus-summary" v-if="label === 'bonus'">
+      {{ femaleBonusPercent }}% of women received bonus pay
+    </p>
+    <p class="bonus-summary" v-if="label === 'bonus'">
+      {{ maleBonusPercent }}% of men received bonus pay
+    </p>
   </div>
 </template>
 
@@ -70,7 +68,9 @@ const formatAvg = computed(() => {
 }
 
 .section-header {
+  margin: 5px 0 0 0;
   text-transform: capitalize;
+  text-decoration: underline;
 }
 
 .female-median,
@@ -88,12 +88,12 @@ const formatAvg = computed(() => {
 
 .female-median .bar {
   height: v-bind(femaleMedianPercent + "%");
-  background-color: darkorange;
+  background-color: #f05d5e;
 }
 
 .male-median .bar {
   height: v-bind((base / femaleMedianPercent) * base + "%");
-  background-color: grey;
+  background-color: #828a95;
 }
 
 .female-median .bar .median-amount,
@@ -107,5 +107,9 @@ const formatAvg = computed(() => {
   justify-content: center;
   width: 20%;
   margin: 0 5px;
+}
+
+.bonus-summary {
+  margin: 0;
 }
 </style>
