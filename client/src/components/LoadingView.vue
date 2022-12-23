@@ -1,3 +1,5 @@
 <template>
-  <div>LOADING</div>
+  <div>
+    <marquee>LOADING...</marquee>
+  </div>
 </template>

@@ -19,7 +19,10 @@ const setupExt = async () => {
     currentWindow: true,
   });
 
-  if (!tab.url.includes("linkedin.com/company/")) {
+  if (
+    !tab.url.includes("linkedin.com/company/") &&
+    !tab.url.includes("linkedin.com/school/")
+  ) {
     return;
   }
   chrome.scripting.executeScript(

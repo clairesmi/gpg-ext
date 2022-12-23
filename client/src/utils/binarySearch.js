@@ -21,13 +21,14 @@ const capitalise = str => {
 }
 
 
+let bestMatch
 export const binarySearch = (arr, title, start, end) => {
     
     // const cleansedTitle = title.startsWith('THE') ? title.slice(4) : title
     // console.log('runn')
     // Base Condition
     if (start > end) {
-        return
+        return bestMatch
     }
     
     // Find the middle index
@@ -41,33 +42,19 @@ export const binarySearch = (arr, title, start, end) => {
     // console.log(currentName)
     
     const fuse = new Fuse([currentName, cleansedName], fuseOpts)
-    // Compare mid with given key 
-    // if (arr[mid]["CurrentName"].toUpperCase().includes(title) || title.includes(arr[mid]["CurrentName"].toUpperCase())) { // zizzi should be title - use includes both ways
-    //     console.log(arr[mid], 'arr mid')
-    //     return arr[mid];
-    // }
 
     if (EXCEPTIONS.includes(title)) {
         if (currentName.includes(title + ' ') || title.includes(currentName + ' ')) {
             return arr[mid]
         }
     } else {
-        // console.log(currentName, cleansedName)
-        // const fuse = new Fuse(title, fuseOpts)
-        // includes option for fuse.js
-        // const result = fuse.search(`${cleansedTitle}`)
         const result = fuse.search(`${title}`)
         if (result.length || currentName.includes(title) || title.includes(currentName)) {
-            return arr[mid]
+            bestMatch = arr[mid]
+            console.log(bestMatch)
+            // return arr[mid]
         }
     }
-
-
-
-
-
-    // If element at mid is greater than x,
-    // search in the left half of mid
 
     if (currentName > title) {
     // if (currentName > cleansedTitle) {

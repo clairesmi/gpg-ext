@@ -86,19 +86,22 @@ const formatAvg = computed(() => {
 }
 
 .female-median .bar {
+  position: relative;
   height: v-bind(femaleMedianPercent + "%");
   background-color: #f05d5e;
 }
 
 .male-median .bar {
+  position: relative;
   height: v-bind((base / femaleMedianPercent) * base + "%");
   background-color: #828a95;
 }
 
 .female-median .bar .median-amount,
 .male-median .bar .median-amount {
+  position: absolute;
+  top: -15px;
   text-align: center;
-  margin: 5px;
 }
 
 .bar {
