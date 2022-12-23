@@ -14,7 +14,6 @@ const EXCEPTIONS = [
     'REVOLUT',
     'EUROPCAR',
     'LUSH',
-    'AVIVA'
 ]
 
 const capitalise = str => {
