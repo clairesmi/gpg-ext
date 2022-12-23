@@ -17,7 +17,6 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 def get_json_data():
     data = gpg_data.get_data()
-    print(jsonify(data))
     return jsonify(data)
 
 # get_json_data()
