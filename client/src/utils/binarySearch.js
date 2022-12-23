@@ -13,10 +13,9 @@ const fuseOpts = {
 const EXCEPTIONS = [
     'REVOLUT',
     'EUROPCAR',
-    'LUSH'
+    'LUSH',
+    'AVIVA'
 ]
-
-// the guardian, metro bank, missguided, ryanair
 
 const capitalise = str => {
     return str.toUpperCase()
@@ -36,12 +35,12 @@ export const binarySearch = (arr, title, start, end) => {
     let mid = Math.floor((start + end)/2)
     
     let currentName
-    let cleansedName
+    // let employerName
     
     if (arr[mid]['CurrentName']) currentName = capitalise(arr[mid]['CurrentName'])
-    if (arr[mid]['CleansedName']) cleansedName = capitalise(arr[mid]['CleansedName'])
+    // if (arr[mid]['EmployerName']) employerName = capitalise(arr[mid]['EmployerName'])
     
-    const fuse = new Fuse([currentName, cleansedName], fuseOpts)
+    const fuse = new Fuse([currentName], fuseOpts)
 
     if (EXCEPTIONS.includes(title)) {
         if (currentName.includes(title + ' ') || title.includes(currentName + ' ')) {
