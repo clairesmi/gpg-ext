@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .legend-wrapper {
   display: flex;
 }

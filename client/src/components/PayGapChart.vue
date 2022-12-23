@@ -64,13 +64,12 @@ const formatAvg = computed(() => {
 <style scoped>
 .chart-container {
   display: flex;
-  height: 85%;
+  height: 35%;
 }
 
 .section-header {
   margin: 5px 0 0 0;
   text-transform: capitalize;
-  text-decoration: underline;
 }
 
 .female-median,

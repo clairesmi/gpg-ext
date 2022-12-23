@@ -153,35 +153,24 @@ onMounted(() => {
 }
 
 .main {
-  height: fit-content;
   width: 500px;
-}
-
-.loading-view,
-.content {
-  height: 100%;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  margin: 15px 5px 0 0;
+  margin: 5px 5px 5px 0px;
 }
 
 .header-text {
   margin: 0;
 }
 
-.section {
-  height: 100%;
-  /* overflow-y: scroll; */
-}
-
 .hpg,
 .bpg {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  height: 250px;
+  justify-content: space-between;
+  height: 300px;
 }
 </style>

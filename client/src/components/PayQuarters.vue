@@ -64,7 +64,6 @@ const payQuarters = [
 <style scoped>
 .header {
   padding: 12px 0 0 0;
-  text-decoration: underline;
   border-top: solid lightgrey 1px;
 }
 .percentages-male {
@@ -91,6 +90,6 @@ const payQuarters = [
 }
 
 .quartile-labels {
-  text-decoration: underline;
+  font-weight: 700;
 }
 </style>
