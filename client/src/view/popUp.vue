@@ -59,7 +59,7 @@ const fetchData = async () => {
     // const res = await fetch("http://localhost:105/getgpgdata/", {
     // AWS LOCATION FOR PRODUCTION
     const res = await fetch(
-      "https://cs--1.s3.eu-west-2.amazonaws.com/gpg_data.json",
+      "https://cs--1.s3.eu-west-2.amazonaws.com/gpg_2021_2022.json",
       {
         method: "get",
         headers: {

@@ -9,8 +9,8 @@ def get_data():
     # remove 'the' from the beginning of company names
     # re-sort alphabetically
 
-
-    df["CurrentName"] = df.apply(lambda row: row["CurrentName"][4:] if row["CurrentName"].upper().startswith('THE') else row["CurrentName"], axis=1)
+    # normalise data byt capitalisong currentName field
+    df["CurrentName"] = df.apply(lambda row: row["CurrentName"][4:].upper() if row["CurrentName"].upper().startswith('THE') else row["CurrentName"].upper(), axis=1)
 
 
     # alphabetise
