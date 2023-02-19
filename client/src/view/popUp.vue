@@ -167,6 +167,7 @@ onMounted(() => {
   margin: 5px 5px 5px 0px;
   background: white;
   z-index: 1;
+  padding-bottom: 10px;
 }
 
 .header-text {
