@@ -39,8 +39,8 @@ const payQuarters = [
     <h2 class="header">The percentage of women in each pay quarter</h2>
     <p class="quartile-summary">
       In this organisation, women occupy
-      {{ props.femaleLowerQuartile }}% of the highest paid jobs and
-      {{ props.femaleTopQuartile }}% of the lowest paid jobs.
+      {{ props.femaleTopQuartile }}% of the highest paid jobs and
+      {{ props.femaleLowerQuartile }}% of the lowest paid jobs.
     </p>
     <div class="chart-container">
       <div v-for="(item, i) in payQuarters" :key="i" class="quartile">

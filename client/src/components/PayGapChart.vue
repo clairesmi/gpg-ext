@@ -36,6 +36,10 @@ const formatAvg = computed(() => {
       In this company, women earn {{ formatMedian }} for every £1 that men earn
       when comparing median {{ label }} pay.
     </p>
+    <p class="avg-summary">
+      When comparing average {{ label }} pay, women’s {{ label }} pay is
+      {{ formatAvg.value }}% {{ formatAvg.direction }} than men’s.
+    </p>
     <div class="chart-container">
       <div class="female-median">
         <div class="bar">
@@ -48,10 +52,6 @@ const formatAvg = computed(() => {
         </div>
       </div>
     </div>
-    <p class="avg-summary">
-      When comparing average {{ label }} pay, women’s {{ label }} pay is
-      {{ formatAvg.value }}% {{ formatAvg.direction }} than men’s.
-    </p>
     <p class="bonus-summary" v-if="label === 'bonus'">
       {{ femaleBonusPercent }}% of women received bonus pay
     </p>
@@ -102,6 +102,11 @@ const formatAvg = computed(() => {
   position: absolute;
   top: -15px;
   text-align: center;
+}
+
+.median-summary,
+.avg-summary {
+  margin: 0;
 }
 
 .bar {

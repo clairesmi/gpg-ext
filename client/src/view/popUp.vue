@@ -160,9 +160,13 @@ onMounted(() => {
 }
 
 .header {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   margin: 5px 5px 5px 0px;
+  background: white;
+  z-index: 1;
 }
 
 .header-text {
@@ -174,6 +178,6 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 300px;
+  height: 320px;
 }
 </style>
