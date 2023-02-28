@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "gpg-ext",
-    "description": "chrome extension",
+    "name": "Gender Pay Gap UK for Linkedin",
+    "description": "Chrome extension that can be used on company or school pages on Linkedin to view gender pay gap data submitted to the UK government",
     "version": "0.0.1",
     "background": {
         "service_worker": "background.js"
@@ -11,13 +11,11 @@
         "https://www.linkedin.com/school/"
     ],
     "permissions": [
-        "storage",
         "scripting",
-        "declarativeContent",
-        "tabs"
+        "declarativeContent"
     ],
     "action": {
-        "default_title": "Click Me",
+        "default_title": "Gender Pay Gap UK",
         "default_popup": "popup.html"
     },
     "content_scripts": [
